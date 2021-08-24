@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="ApiGateway/src/main/java"/>
+	<classpathentry kind="src" path="ApiGateway/src/test/java"/>
+	<classpathentry kind="src" path="locationmicroservice/src/main/java"/>
+	<classpathentry kind="src" path="locationmicroservice/src/test/java"/>
+	<classpathentry kind="src" path="TripinfoMicroservice/src/main/java"/>
+	<classpathentry kind="src" path="TripinfoMicroservice/src/test/java"/>
+	<classpathentry kind="src" path="UserMicroservice/src/main/java"/>
+	<classpathentry kind="src" path="UserMicroservice/src/test/java"/>
+	<classpathentry kind="output" path="UserMicroservice/target/classes"/>
+</classpath>

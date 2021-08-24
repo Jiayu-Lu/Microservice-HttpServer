@@ -1,0 +1,61 @@
+# This is a basic workflow to help you get started with Actions
+
+name: App Tests
+
+# TODO make it so that the actions run on push and pull requests on your main/master branch and the develop branch
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  CI:
+    name: test
+    runs-on: self-hosted
+    steps:
+
+      # TODO use checkout V2 to checkout your repo
+      # add your statement(s) here
+      - name: Check V2 
+        uses: actions/checkout@v2
+        
+      - name: Set up JDK 16
+        uses: actions/setup-java@v1
+        with:
+          java-version: 16
+
+      # Do not modify this step
+      - name: Clean up running environment
+        run: |
+          clean_up_docker
+      # TODO make a step to build and run your docker containers. Please make sure to use the -d flag when you start the containers so the step doesnt hang.
+      # add your statement(s) here
+      - name: Build and run docker containers
+        run: docker-compose up --build -d
+        
+      - name: Sleep for 2 minutes
+        run: sleep 2m
+        shell: bash
+        
+      - name: Run test for user microservice
+        run: docker exec usermicroservice mvn test
+        timeout-minutes: 8
+        
+      - name: Run test for location microservice
+        run: docker exec locationmicroservice mvn test
+        timeout-minutes: 8
+
+      - name: Run test for trip microservice
+        run: docker exec tripinfomicroservice mvn test
+        timeout-minutes: 8
+      # TODO make a step to shut down your docker containers. Please use the --remove-orphans flag.
+      # DO NOT RUN YOUR ACTIONS IF YOU HAVENT COMPLETED THIS STEP
+      # add your statement(s) here
+      - name: shut down docker containers
+        run: docker-compose down --remove-orphans
+
+      # Do not modify this step
+      - name: Clean up running environment on exit
+        run: |
+          clean_up_docker
